@@ -1,0 +1,3 @@
+[submodule "QuantDinger_axd"]
+	path = QuantDinger_axd
+	url = git@github.com:acornus2022/QuantDinger_axd.git

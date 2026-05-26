@@ -16,6 +16,19 @@ from app.services.alpaca_trading.symbols import normalize_symbol, format_display
 logger = get_logger(__name__)
 
 
+def normalize_alpaca_base_url(base_url: Optional[str]) -> Optional[str]:
+    """
+    alpaca-py expects the host root (e.g. https://paper-api.alpaca.markets).
+    UI/docs often paste REST docs URLs ending in /v2, which breaks get_account() with 404.
+    """
+    if not base_url:
+        return None
+    url = base_url.strip().rstrip("/")
+    if url.lower().endswith("/v2"):
+        url = url[:-3].rstrip("/")
+    return url or None
+
+
 # Lazy import alpaca-py to allow other features to work without it installed
 _alpaca_modules = None
 
@@ -98,11 +111,12 @@ class AlpacaClient:
         """Initialize Alpaca client and verify credentials by fetching account."""
         try:
             modules = _ensure_alpaca()
+            base_url = normalize_alpaca_base_url(self.config.base_url)
             self._trading_client = modules["TradingClient"](
                 api_key=self.config.api_key,
                 secret_key=self.config.secret_key,
                 paper=self.config.paper,
-                url_override=self.config.base_url,
+                url_override=base_url,
             )
             self._stock_data_client = modules["StockHistoricalDataClient"](
                 api_key=self.config.api_key,
@@ -114,7 +128,7 @@ class AlpacaClient:
             )
             # Verify by fetching account
             account = self._trading_client.get_account()
-            self._account_id = account.id
+            self._account_id = str(account.id)
             mode = "paper" if self.config.paper else "live"
             logger.info(f"Alpaca connected ({mode}), account={self._account_id[:12]}..., status={account.status}")
             return True

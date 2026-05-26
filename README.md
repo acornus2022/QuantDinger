@@ -162,6 +162,7 @@ This repo ships the **backend**, **Docker Compose** stack, and **documentation**
 |------------|------------|
 | **[QuantDinger](https://github.com/brokermr810/QuantDinger)** (this repo) | Backend (Flask/Python), Compose stack, docs |
 | **[QuantDinger-Vue](https://github.com/brokermr810/QuantDinger-Vue)** | **Web frontend source** (Vue) — tagging `v*` publishes `ghcr.io/brokermr810/quantdinger-frontend` automatically |
+| **[QuantDinger_axd](https://github.com/acornus2022/QuantDinger_axd)** | **Local US-equity backtest toolkit** (git submodule at `./QuantDinger_axd/`) |
 | **[QuantDinger-Mobile](https://github.com/brokermr810/QuantDinger-Mobile)** | **Open-source mobile client** — pairs with your self-hosted or SaaS backend |
 
 **Note:** Node.js is only required if you build the web UI from **QuantDinger-Vue**; the default Docker quick start pulls the published image and does not need it.
@@ -566,6 +567,7 @@ QuantDinger/
 │   ├── env.example          # Main environment template
 │   └── Dockerfile
 ├── docs/                    # Product, strategy, and deployment documentation
+├── QuantDinger_axd/       # Git submodule — standalone backtest engine + sample data
 ├── docker-compose.yml       # Web UI via GHCR; optional ./QuantDinger-Vue/ for local UI builds
 ├── LICENSE
 └── TRADEMARKS.md

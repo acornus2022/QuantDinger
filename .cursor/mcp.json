@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "quantdinger": {
+      "command": "uvx",
+      "args": ["quantdinger-mcp"],
+      "env": {
+        "QUANTDINGER_BASE_URL": "http://localhost:8888",
+        "QUANTDINGER_AGENT_TOKEN": "qd_agent_wG0yynY-FSzgdU4qmXqQd5cg4L3_4npvyRAI8-QAvW4"
+      }
+    }
+  }
+}

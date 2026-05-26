@@ -14,6 +14,7 @@ from app.utils.auth import login_required
 from app.utils.logger import get_logger
 from app.utils.broker_session import BrokerSessionRegistry
 from app.services.alpaca_trading import AlpacaClient, AlpacaConfig
+from app.services.alpaca_trading.client import normalize_alpaca_base_url
 
 logger = get_logger(__name__)
 
@@ -72,7 +73,7 @@ def connect():
             api_key=api_key,
             secret_key=secret_key,
             paper=bool(data.get('paper', True)),
-            base_url=data.get('baseUrl') or None,
+            base_url=normalize_alpaca_base_url(data.get('baseUrl')),
         )
 
         client = AlpacaClient(config)
